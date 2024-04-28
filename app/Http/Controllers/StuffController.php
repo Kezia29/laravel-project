@@ -9,14 +9,14 @@ use App\Http\Requests\UpdateStuffRequest;
 
 class StuffController extends Controller
 {
-    /**
+/**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $stuffs = Stuff::all();
+        $stuff = Stuff::with(['category','detail'])->get();
         return view('stuff.list', [
-            'data' => $stuffs,
+            'data' => $stuff,
         ]);
     }
 
@@ -43,7 +43,7 @@ class StuffController extends Controller
      */
     public function show(Stuff $stuff)
     {
-        return view('stuff.list', [
+        return view('stuff.add', [
             'data' => $stuff,
         ]);
     }
@@ -59,7 +59,7 @@ class StuffController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStuff $request, Stuff $stuff)
+    public function update(UpdateStuffRequest $request, Stuff $stuff)
     {
         $stuff->fill($request->all());
         $stuff->save();
