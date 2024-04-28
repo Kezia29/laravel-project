@@ -8,6 +8,8 @@ use App\Http\Controllers\MenuController;
 
 Route::get('/', [HomeController::class, 'index']);
 
+Route::get('/template', function(){ return view('home');});
+
 Route::get('/menu', [MenuController::class, 'index']);
 
 Route::get('/kategori', [KategoriController::class, 'index']);
