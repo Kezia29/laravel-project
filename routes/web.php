@@ -20,6 +20,8 @@ Route::get('transaction/add', [TransactionController::class, 'create']);
 
 Route::get('customer', [CustomerController::class, 'index']); 
 Route::get('customer/add', [CustomerController::class, 'create']);
+Route::post('customer', [CustomerController::class, 'store']); 
+Route::get('customer/{customer}', [CustomerController::class, 'destroy']);
 
 Route::get('category', [CategoryController::class, 'index']); 
 Route::get('category/add', [CategoryController::class, 'create']);
