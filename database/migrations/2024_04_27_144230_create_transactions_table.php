@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('nota')->primary();
             $table->string('id_user');
             $table->string('id_customer');
-            $table->date('status')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }
