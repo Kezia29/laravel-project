@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasMany; 
+use App\Models\Category;
+use App\Models\DetailTransaction;
 
 class Stuff extends Model
 {
@@ -23,6 +23,7 @@ class Stuff extends Model
         'price',
         'unit',
         'status',
+        'image',
         'id_category',
     ];
 
