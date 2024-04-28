@@ -37,8 +37,6 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Jenis Kelamin</th>
                                     <th>Status</th>
                                     <th></th>
                                 </tr>
@@ -48,14 +46,12 @@
                                 <tr>
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->address }}</td>
-                                    <td>{{ $item->gender == 1 ? 'Laki-laki' : 'Perempuan' }}</td>
                                     <td>{{ $item->status == 1 ? 'Aktif' : 'Tidak' }}</td>
                                     <td>
-                                        <a href="/customer/{{ $item->id }}">
+                                        <a href="/category/{{ $item->id }}">
                                             <button type="button" class="btn btn-warning btn-sm"><i class="far fa-edit"></i></button>
                                         </a>
-                                        <form action="/customer/{{ $item->id }}" method="POST"> 
+                                        <form action="/category/{{ $item->id }}" method="POST"> 
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>

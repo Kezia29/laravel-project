@@ -6,10 +6,9 @@ use App\Models\Customer;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 
-
 class CustomerController extends Controller
 {
-        /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -43,7 +42,9 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.add', [
+            'data' => $customer,
+        ]);
     }
 
     /**
@@ -57,9 +58,12 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCustomer $request, Customer $customer)
+    public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->fill($request->all());
+        $customer->save();
+
+        return redirect('/customer');
     }
 
     /**
