@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('unit')->nullable();
             $table->longText('image')->nullable();
             $table->integer('status')->default(0);
-            $table->string('id_kategori')->nullable();
+            $table->string('id_category')->nullable();
             $table->timestamps();
         });
     }
