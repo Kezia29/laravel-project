@@ -25,7 +25,10 @@ class StuffController extends Controller
      */
     public function create()
     {
-        return view('stuff.add');
+        $category = Category::where('status', 1)->get();
+        return view('stuff.add', [
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -33,9 +36,14 @@ class StuffController extends Controller
      */
     public function store(StoreStuffRequest $request)
     {
+        $path = $request->file('file')->store('stuff');
+
+        $request->merge(['image' => $path]);
         Stuff::create($request->all());
 
-        return redirect('/stuff');
+        return redirect('/stuff')->with([
+            'mess' => 'Data berhasil disimpan',
+        ]);
     }
 
     /**
@@ -72,8 +80,12 @@ class StuffController extends Controller
      */
     public function destroy(Stuff $stuff)
     {
+        Storage::delete($stuff->image);
+
         $stuff->delete();
 
-        return redirect('/stuff');
+        return redirect('/stuff')->with([
+            'mess' => 'Data berhasil dihapus',
+        ]);
     }
 }

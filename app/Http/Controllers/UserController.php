@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +14,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.list');
+        $user = User::all();
+
+        return view('user.list', [
+            'data' => $user,
+        ]);
     }
 
     /**
@@ -26,9 +32,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
-        //
+        $path = $request->file('file')->store('avatar');
+
+        $request->merge(['avatar' => $path]);
+        User::create($request->all());
+
+        return redirect('/users')->with([
+            'mess' => 'Data berhasil disimpan',
+        ]);
     }
 
     /**
@@ -36,7 +49,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('user.add', [
+            'data' => $user,
+        ]);
     }
 
     /**
@@ -52,7 +67,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->fill($request->all());
+        $user->save();
+
+        return redirect('/user')->with([
+            'mess' => 'Data berhasil disimpan',
+        ]);
     }
 
     /**
@@ -60,6 +80,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        Storage::delete($user->avatar);
+
+        $user->delete();
+
+        return redirect ('/users')->with([
+            'mess' => 'Data berhasil dihapus',
+        ]);
     }
 }

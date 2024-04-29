@@ -34,7 +34,9 @@ class CustomerController extends Controller
     {
         Customer::create($request->all());
 
-        return redirect('/customer');
+        return redirect('/customer')->with([
+            'mess' => 'Data berhasil disimpan',
+        ]);
     }
 
     /**
@@ -63,7 +65,9 @@ class CustomerController extends Controller
         $customer->fill($request->all());
         $customer->save();
 
-        return redirect('/customer');
+        return redirect('/customer')->with([
+            'mess' => 'Data berhasil disimpan',
+        ]);
     }
 
     /**
@@ -73,6 +77,8 @@ class CustomerController extends Controller
     {
         $customer->delete();
 
-        return redirect('/customer');
+        return redirect('/customer')->with([
+            'mess' => 'Data berhasil dihapus',
+        ]);
     }
 }
