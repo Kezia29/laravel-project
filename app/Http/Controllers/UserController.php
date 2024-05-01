@@ -39,7 +39,7 @@ class UserController extends Controller
         $request->merge(['avatar' => $path]);
         User::create($request->all());
 
-        return redirect('/users')->with([
+        return redirect('/user')->with([
             'mess' => 'Data berhasil disimpan',
         ]);
     }
@@ -84,7 +84,7 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect ('/users')->with([
+        return redirect ('/user')->with([
             'mess' => 'Data berhasil dihapus',
         ]);
     }

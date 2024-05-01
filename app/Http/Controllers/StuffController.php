@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Stuff;
+use App\Models\Category;
 use App\Http\Requests\StoreStuffRequest;
 use App\Http\Requests\UpdateStuffRequest;
+use Illuminate\Support\Facades\Storage;
+
 
 class StuffController extends Controller
 {
@@ -25,7 +28,7 @@ class StuffController extends Controller
      */
     public function create()
     {
-        $category = Category::where('status', 1)->get();
+        $categories = Category::where('status', 1)->get();
         return view('stuff.add', [
             'categories' => $categories,
         ]);
@@ -36,7 +39,7 @@ class StuffController extends Controller
      */
     public function store(StoreStuffRequest $request)
     {
-        $path = $request->file('file')->store('stuff');
+        $path = $request->file('file')->store('stuff_photo');
 
         $request->merge(['image' => $path]);
         Stuff::create($request->all());
@@ -51,8 +54,10 @@ class StuffController extends Controller
      */
     public function show(Stuff $stuff)
     {
+        $categories = Category::where('status', 1)->get();
         return view('stuff.add', [
             'data' => $stuff,
+            'categories' => $categories,
         ]);
     }
 
@@ -69,6 +74,8 @@ class StuffController extends Controller
      */
     public function update(UpdateStuffRequest $request, Stuff $stuff)
     {
+        $path = $request->file('file')->store('stuff_photo');
+        $request->merge(['image' => $path]);
         $stuff->fill($request->all());
         $stuff->save();
 

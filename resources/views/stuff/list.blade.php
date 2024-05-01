@@ -36,8 +36,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th style="width: 150px;">Foto</th>
                                     <th>Nama</th>
                                     <th>Harga</th>
+                                    <th>Satuan</th>
                                     <th>Kategori</th>
                                     <th>Status</th>
                                     <th></th>
@@ -46,9 +48,13 @@
                             <tbody>
                                 @foreach ($data as $item)
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td >{{ $item->id }}</td>
+                                    <td style="width: 150px;">
+                                        <img style="width: 150px; height: auto;" src="{{ $item->image}}">
+                                    </td>
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->price }}</td>
+                                    <td>{{ $item->unit }}</td>
                                     <td>{{ $item->category->name }}</td>
                                     <td>{{ $item->status == 1 ? 'Aktif' : 'Tidak' }}</td>
                                     <td>
