@@ -87,8 +87,9 @@ class StuffController extends Controller
      */
     public function destroy(Stuff $stuff)
     {
-        Storage::delete($stuff->image);
-
+        if($stuff->image){
+            Storage::delete($stuff->image);
+        }
         $stuff->delete();
 
         return redirect('/stuff')->with([
