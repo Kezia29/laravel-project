@@ -6,6 +6,7 @@ use App\Models\Customer;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -87,7 +88,9 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Storage::delete($user->avatar);
+        if($user->avatar){
+            Storage::delete($user->avatar);
+        }
 
         $user->delete();
 
