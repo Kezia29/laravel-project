@@ -39,9 +39,12 @@ class StuffController extends Controller
      */
     public function store(StoreStuffRequest $request)
     {
-        $path = $request->file('file')->store('stuff_photo');
-
-        $request->merge(['image' => $path]);
+        if($request->file('file')){
+            $path = $request->file('file')->store('stuff_photo');
+            $request->merge(['image' => $path]);
+        }else{
+            $request->merge(['image' => '']);
+        }
         Stuff::create($request->all());
 
         return redirect('/stuff')->with([
@@ -74,8 +77,10 @@ class StuffController extends Controller
      */
     public function update(UpdateStuffRequest $request, Stuff $stuff)
     {
-        $path = $request->file('file')->store('stuff_photo');
-        $request->merge(['image' => $path]);
+        if($request->file('file')){
+            $path = $request->file('file')->store('stuff_photo');
+            $request->merge(['image' => $path]);
+        }
         $stuff->fill($request->all());
         $stuff->save();
 

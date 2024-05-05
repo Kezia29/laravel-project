@@ -34,9 +34,12 @@ class UserController extends Controller
      */
     public function store(Request $request, User $user)
     {
-        $path = $request->file('file')->store('avatar');
-
-        $request->merge(['avatar' => $path]);
+        if($request->file('file')){
+            $path = $request->file('file')->store('avatar');
+            $request->merge(['avatar' => $path]);
+        }else{
+            $request->merge(['avatar' => '']);
+        }
         User::create($request->all());
 
         return redirect('/user')->with([
@@ -67,6 +70,10 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        if($request->file('file')){
+            $path = $request->file('file')->store('avatar');
+            $request->merge(['avatar' => $path]);
+        }
         $user->fill($request->all());
         $user->save();
 
