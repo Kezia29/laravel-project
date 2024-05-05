@@ -27,7 +27,7 @@ class TransactionController extends Controller
     {
         $stuff = Stuff::all();
         return view('transaction.add',[
-            'stuffs' => $stuffs,
+            'stuffs' => $stuff,
         ]);
     }
 
